@@ -1,0 +1,55 @@
+---
+title: "Stem_and_Leaf"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+The stem method in PACKAGE:graphics produces a basic stem and leaf plot. THe method works best on un-skewwed, outlier-free, shorter datasets. 
+```{r}
+?stem
+
+# "ideal" Example (n = 100) --------------------------------
+stem(Nile)
+```
+
+The "scale" argument adjusts the bin size. 
+```{r}
+# bins Example ---------------------------------------------
+# scale = 1
+stem(faithful$eruptions)
+
+# decreasing the scale decreases the number of bins
+stem(faithful$eruptions, scale = 0.5) 
+
+# increasing the scale increases the number of bins
+stem(faithful$eruptions, scale = 2)
+```
+
+Transformations can be employed to help with skew, but be aware that transformations hinder interpretation.
+```{r}
+# Skew Example ---------------------------------------------
+# Heavy skew
+stem(islands)
+
+# Better.
+stem(log(islands))
+```
+
+The method is not appropriate for very large datasets. Try to summarize the data in some way to reduce the number of entries (e.g., monthly data --> annual data)
+```{r}
+# Too many entries Example ---------------------------------
+# (n = 3177)
+stem(sunspot.month)
+
+# (n = 289)
+stem(sunspot.year)
+```
+
+Additional control is possible with stem.leaf and stem.leaf.backback in the PACKAGE:aplpack
+```{r}
+require(aplpack)
+stem.leaf(Nile)
+```
+
